@@ -1,18 +1,27 @@
 package lesson1;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
 
     private static final int DEFAULT_SIZE = 10;
     static int size = 0;
-    private String[] elements = new String[DEFAULT_SIZE];
+    private T[] elements;
 
-    public void add(String string) {
+    public NewArrayList(Class<T> c) {
+        elements = (T[]) Array.newInstance(c, DEFAULT_SIZE);
+    }
+
+    public int length() {
+        return elements.length;
+    }
+
+    public void add(T t) {
         if (size == elements.length) {
-            elements = Arrays.copyOf(elements, elements.length * 2);
+            elements = Arrays.copyOf(elements, (int) (elements.length * 1.5));
         }
-        elements[size++] = string;
+        elements[size++] = t;
     }
 
     @Override
@@ -29,15 +38,15 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         elements[size] = null;
     }
 
-    public String get(int i) {
-        if (i > 0 && i < size) {
+    public T get(int i) {
+        if (i >= 0 && i <= size) {
             return elements[i];
         }
-        return "-1";
+        return (T) "No such element";
     }
 
-    public void set(int i, String string) {
-        elements[i] = string;
+    public void set(int i, T t) {
+        elements[i] = t;
     }
 
     public int size() {
