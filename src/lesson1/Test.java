@@ -24,6 +24,7 @@ public class Test {
             array.add((double) (Math.random() * 100));
         }
         System.out.println(array);
+
 //        array.sort();
 //        System.out.println(array);
 

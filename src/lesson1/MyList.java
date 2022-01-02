@@ -14,7 +14,5 @@ public interface MyList<T extends Comparable<T>> {
 
     boolean isEmpty();
 
-    int length();
-
     public void sort();
 }

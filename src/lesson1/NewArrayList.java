@@ -3,14 +3,15 @@ package lesson1;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 
 public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
-
     private static final int DEFAULT_SIZE = 10;
     private int size = 0;
     private T[] elements;
 
+//метод проверяет тип Т, если число - возвращает 1, если нет - возвращает 2.
     private int check() {
         int result;
         for (T element : elements) {
@@ -24,6 +25,7 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         return 0;
     }
 
+//Если метод check() возвращет 1 - идет пузырьковая сортировка элементов, если 2 - то с помощью компаратора
     public void sort() {
         int a = check();
         switch (a) {
@@ -55,13 +57,8 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         }
     }
 
-
     public NewArrayList(Class<T> c) {
         elements = (T[]) Array.newInstance(c, DEFAULT_SIZE);
-    }
-
-    public int length() {
-        return elements.length;
     }
 
     public void add(T t) {
@@ -72,12 +69,12 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         size++;
     }
 
+// данный toString убирает элементы null при выводе на экран
     @Override
     public String toString() {
-
         String s = "[";
         for (int i = 0; i < size; i++) {
-            s = s + elements[i].toString();
+            s += elements[i].toString();
             if (i + 1 < size) {
                 s += ", ";
             }
@@ -98,8 +95,9 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
     public T get(int i) {
         if (i >= 0 && i <= size) {
             return elements[i];
+        } else {
+            throw new NoSuchElementException("No such element");
         }
-        return (T) "No such element";
     }
 
     public void set(int i, T t) {
@@ -114,4 +112,3 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         return (size == 0);
     }
 }
-
