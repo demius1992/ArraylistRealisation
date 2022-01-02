@@ -3,7 +3,7 @@ package lesson1;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Objects;
+
 
 public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
 
@@ -11,16 +11,15 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
     private int size = 0;
     private T[] elements;
 
-    public int check() {
+    private int check() {
         int result;
         for (T element : elements) {
-            if (element instanceof Integer) {
+            if (element instanceof Number) {
                 result = 1;
-                return result;
             } else {
                 result = 2;
-                return result;
             }
+            return result;
         }
         return 0;
     }
@@ -37,7 +36,7 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
                         if (elements[i] == null || elements[i + 1] == null) {
                             break;
                         }
-                        if (Integer.parseInt(String.valueOf(elements[i])) > Integer.parseInt(String.valueOf(elements[i + 1]))) {
+                        if (Float.parseFloat(String.valueOf(elements[i])) > Float.parseFloat(String.valueOf(elements[i + 1]))) {
                             isSorted = false;
                             buf = elements[i];
                             elements[i] = elements[i + 1];
@@ -75,7 +74,16 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(elements);
+
+        String s = "[";
+        for (int i = 0; i < size; i++) {
+            s = s + elements[i].toString();
+            if (i + 1 < size) {
+                s += ", ";
+            }
+        }
+        s += "]";
+        return s;
     }
 
     public void remove(int index) {
@@ -106,3 +114,4 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         return (size == 0);
     }
 }
+

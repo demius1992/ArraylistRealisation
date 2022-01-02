@@ -1,6 +1,11 @@
 package lesson1;
 
+import lesson1.NewArrayList;
+
+import java.util.Random;
+
 public class Test {
+
     public static void main(String[] args) {
         /*
         При создании объеката класса NewArrayList в конструктор нужно передавать тип данных,
@@ -11,22 +16,24 @@ public class Test {
          */
 
 
-        NewArrayList<Integer> array = new NewArrayList<>(Integer.class);
+        NewArrayList<Double> array = new NewArrayList(Double.class);
 //
 //        System.out.println("Количество значений в массиве: " + array.size());
 //        System.out.println("Длина массива: " + array.length());
         for (int i = 15; i >= 0; i--) {
-            array.add(i);
+            array.add((double) (Math.random() * 100));
         }
         System.out.println(array);
-        array.sort();
-        System.out.println(array);
+//        array.sort();
+//        System.out.println(array);
+
 //        System.out.println("Длина массива после добавления 15 элементов: " + array.length());
 //        System.out.println("Новое количество значений в массиве: " + array.size());
 //        System.out.println("Значения массива:" + array);
-//        array.set(4, 125);
+//        array.set(4, 125.);
 //        System.out.printf("Значения массива после замены элемента %d на элемент %d : \n %s \n", 4, 125, array);
-//        System.out.printf("Значение по индексу %d: %s \n", array.get(0), array.get(0));
+
+        System.out.printf("Значение по индексу %d: %s \n", 0, array.get(0));
 //        System.out.println("Проверка на наличие элементов в массиве: " + array.isEmpty());
 //        array.remove(10);
 //        System.out.println("Массив после удаления элемента по индексу 10: " + array);
