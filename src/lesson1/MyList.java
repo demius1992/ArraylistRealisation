@@ -6,7 +6,7 @@ public interface MyList<T extends Comparable<T>> {
 
     void remove(int index);
 
-    T get(int index);
+    Object get(int index);
 
     void set(int index, T t);
 

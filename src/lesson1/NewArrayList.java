@@ -1,18 +1,19 @@
 package lesson1;
 
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
-
+import java.util.Objects;
 
 public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
+
     private static final int DEFAULT_SIZE = 10;
     private int size = 0;
     private T[] elements;
 
-//метод проверяет тип Т, если число - возвращает 1, если нет - возвращает 2.
-    private int check() {
+    //метод проверяет тип Т, если число - возвращает 1, если нет - возвращает 2.
+    public int check() {
         int result;
         for (T element : elements) {
             if (element instanceof Number) {
@@ -25,7 +26,6 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         return 0;
     }
 
-//Если метод check() возвращет 1 - идет пузырьковая сортировка элементов, если 2 - то с помощью компаратора
     public void sort() {
         int a = check();
         switch (a) {
@@ -49,7 +49,7 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
                 break;
             }
             case (2): {
-                Arrays.sort(elements, Comparator.nullsLast(Comparator.naturalOrder()));
+                Arrays.sort(elements, Comparator.nullsLast(Comparator.comparing(Objects::toString)));
                 break;
             }
             default:
@@ -69,20 +69,6 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         size++;
     }
 
-// данный toString убирает элементы null при выводе на экран
-    @Override
-    public String toString() {
-        String s = "[";
-        for (int i = 0; i < size; i++) {
-            s += elements[i].toString();
-            if (i + 1 < size) {
-                s += ", ";
-            }
-        }
-        s += "]";
-        return s;
-    }
-
     public void remove(int index) {
         if (index >= size || index < 0) {
             return;
@@ -92,11 +78,13 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
         elements[size] = null;
     }
 
+    // метод get возвращает значение элемента по индексу, если таковой имеется, иначе возвращает null и говорит об ошибке
     public T get(int i) {
-        if (i >= 0 && i <= size) {
+        try {
             return elements[i];
-        } else {
-            throw new NoSuchElementException("No such element");
+        } catch (ArrayIndexOutOfBoundsException exc) {
+            System.err.println("Array index out of bounds");
+            return null;
         }
     }
 
@@ -110,5 +98,19 @@ public class NewArrayList<T extends Comparable<T>> implements MyList<T> {
 
     public boolean isEmpty() {
         return (size == 0);
+    }
+
+    // данный toString убирает элементы null при выводе на экран
+    @Override
+    public String toString() {
+        String s = "[";
+        for (int i = 0; i < size; i++) {
+            s = s + elements[i].toString();
+            if (i + 1 < size) {
+                s += ", ";
+            }
+        }
+        s += "]";
+        return s;
     }
 }
